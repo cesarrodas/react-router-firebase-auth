@@ -1,5 +1,5 @@
 var Login = require("../components/login-register/Login");
-var firebaseUtils = require('./firebaseUtils');
+import firebaseUtils from './firebaseUtils';
 
 function requireAuth(nextState, replace) {
   if (!firebaseUtils.isLoggedIn()) {

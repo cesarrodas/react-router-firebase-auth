@@ -1,6 +1,6 @@
 import Rebase from 're-base';
 
-const ref = Rebase.createClass('YOUR LINK HERE');
+const ref = Rebase.createClass('https://talnotes.firebaseio.com/');
 
 let cachedUser = null;
 
@@ -122,4 +122,5 @@ let firebaseUtils = {
   }
 };
 
-module.exports = firebaseUtils;
+export default firebaseUtils;
+

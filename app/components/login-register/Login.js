@@ -1,5 +1,5 @@
 var React = require('react');
-var firebaseUtils = require('../../utils/firebaseUtils');
+import firebaseUtils from '../../utils/firebaseUtils';
 
 var Login = React.createClass({
   contextTypes: {

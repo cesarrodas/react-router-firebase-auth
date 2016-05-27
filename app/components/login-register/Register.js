@@ -1,29 +1,27 @@
-var React = require('react');
-var firebaseUtils = require('../../utils/firebaseUtils');
+import React from 'react';
+import firebaseUtils from '../../utils/firebaseUtils';
 
-var Register = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function(){
-    return {
+class Register extends React.Component {
+  constructor () {
+    super();
+    this.state = {
       error: false
     }
-  },
-  handleSubmit: function(e){
+  }
+  handleSubmit (e) {
     e.preventDefault();
-    var email = this.refs.email.value;
-    var pw = this.refs.pw.value;
-    firebaseUtils.createUser({email: email, password: pw}, function(err){
+    let email = this.refs.email.value;
+    let pw = this.refs.pw.value;
+    firebaseUtils.createUser({email: email, password: pw}, (err) => {
       if(! err ){
           this.context.router.replace('/');
       } else {
         this.setState({error: err});
       }
-    }.bind(this));
-  },
-  render: function(){
-    var errors = this.state.error ? <p> {this.state.error} </p> : '';
+    });
+  }
+  render () {
+    let errors = this.state.error ? <p> {this.state.error} </p> : '';
     return (
       <div className="col-sm-6 col-sm-offset-3">
         <h1> Register </h1>
@@ -42,6 +40,10 @@ var Register = React.createClass({
       </div>
     )
   }
-});
+};
 
-module.exports = Register;
+Register.PropTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+export default Register;

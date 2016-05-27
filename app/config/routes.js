@@ -5,7 +5,7 @@ var Route = ReactRouter.Route;
 var hashHistory = ReactRouter.hashHistory;
 var IndexRoute = ReactRouter.IndexRoute;
 var Main = require('../components/Main');
-var Register = require('../components/login-register/Register');
+import Register from '../components/login-register/Register';
 var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
 var Dashboard = require('../components/secure/Dashboard');
