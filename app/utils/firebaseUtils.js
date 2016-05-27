@@ -1,15 +1,17 @@
-var Firebase = require('firebase');
-var forge = "YOUR-URL-HERE";
-var ref = new Firebase(forge);
-var cachedUser = null;
+import Rebase from 're-base';
 
-var addNewUserToFB = function(newUser){
+const ref = Rebase.createClass('YOUR LINK HERE');
+
+let cachedUser = null;
+
+
+const addNewUserToFB = function(newUser){
   var key = newUser.uid;
   ref.child('user').child(key).set(newUser);
 };
 
-var genErrorMsg = function(e) {
-  var message = ""
+const genErrorMsg = function(e) {
+  let message = ""
   switch ( e.code) {
     case 'AUTHENTICATION_DISABLED':
       message = "The requested authentication provider is disabled for this Firebase application."
@@ -69,15 +71,15 @@ var genErrorMsg = function(e) {
   return message;
 }
 
-var firebaseUtils = {
-  createUser: function(user, cb) {
-    ref.createUser(user, function(err) {
+let firebaseUtils = {
+  createUser(user, cb) {
+    ref.createUser(user, (err) => {
       if (err) {
         var message = genErrorMsg(err);
         console.log(message);
         cb(message);
       } else {
-          this.loginWithPW(user, function(authData){
+          this.loginWithPW(user, (authData) =>{
             addNewUserToFB({
               email: user.email,
               uid: authData.uid,
@@ -85,10 +87,10 @@ var firebaseUtils = {
             });
           }, cb);
       }
-    }.bind(this));
+    });
   },
-  loginWithPW: function(userObj, cb, cbOnRegister){
-    ref.authWithPassword(userObj, function(err, authData){
+  loginWithPW(userObj, cb, cbOnRegister){
+    ref.authWithPassword(userObj, (err, authData) => {
       if (err) {
         var message = genErrorMsg(err);
         if (cbOnRegister) {
@@ -108,12 +110,12 @@ var firebaseUtils = {
           cb(false);
         }
       }
-    }.bind(this));
+    });
   },
-  isLoggedIn: function(){
+  isLoggedIn(){
     return cachedUser && true || ref.getAuth() || false;
   },
-  logout: function(){
+  logout(){
     ref.unauth();
     cachedUser = null;
     this.onChange(false);
